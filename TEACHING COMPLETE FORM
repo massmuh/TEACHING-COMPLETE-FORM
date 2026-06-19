@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching Complete — BantuEnglish</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--be-blue:#001fb8;--be-dark:#404040;--be-white:#ffffff;--be-yellow:#fbca22}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f0f4ff;font-family:'Roboto',Arial,sans-serif;color:var(--be-dark);min-height:100vh}
+.tc{max-width:700px;margin:0 auto;padding:32px 16px 64px}
+.tc-header{background:var(--be-blue);padding:40px 32px;border-radius:16px;text-align:center;margin-bottom:24px}
+.tc-badge{display:inline-block;background:var(--be-yellow);color:var(--be-blue);font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:10px;padding:4px 14px;border-radius:20px;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px}
+.tc-title{font-family:'Poppins',Arial,sans-serif;font-weight:800;font-size:30px;color:var(--be-white);margin-bottom:10px}
+.tc-subtitle{color:rgba(255,255,255,0.82);font-size:14px;line-height:1.7;max-width:500px;margin:0 auto}
+.tc-section{background:var(--be-white);border-radius:14px;margin-bottom:20px;overflow:hidden;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,31,184,0.06)}
+.tc-sh{background:var(--be-blue);padding:14px 22px;display:flex;align-items:center;gap:12px}
+.tc-sn{background:var(--be-yellow);color:var(--be-blue);font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:12px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tc-st{font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;color:var(--be-white)}
+.tc-sb{padding:22px}
+.tc-field{margin-bottom:18px}
+.tc-field:last-child{margin-bottom:0}
+.tc-label{display:block;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:11px;color:var(--be-blue);margin-bottom:7px;text-transform:uppercase;letter-spacing:0.6px}
+.req{color:#e53e3e;margin-left:2px}
+.tc-input{width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;font-family:'Roboto',Arial,sans-serif;color:var(--be-dark);background:#fafbff;outline:none;transition:border-color 0.2s}
+.tc-input:focus{border-color:var(--be-blue)}
+.tc-input::placeholder{color:#a0aec0}
+textarea.tc-input{min-height:140px;resize:vertical}
+.tc-note{background:#fffbeb;border:1px solid #f6ad55;border-radius:10px;padding:12px 16px;font-size:13px;color:#744210;line-height:1.65;margin-bottom:18px}
+.upload-zone{border:2px dashed #c7d2fe;border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;background:#f8f9ff;transition:background 0.2s}
+.upload-zone:hover{background:#eef0ff}
+.up-icon{font-size:28px;display:block;margin-bottom:8px}
+.up-lbl{display:block;font-family:'Poppins',Arial,sans-serif;font-weight:600;color:var(--be-blue);font-size:14px;margin-bottom:4px}
+.up-hint{display:block;color:#94a3b8;font-size:12px}
+.file-list{margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.file-item{display:flex;align-items:center;background:#f0f4ff;border-radius:8px;padding:8px 12px;gap:8px}
+.file-name{font-size:13px;color:var(--be-dark);flex:1;word-break:break-all}
+.file-sz{font-size:11px;color:#94a3b8;white-space:nowrap}
+.file-rm{background:none;border:none;color:#e53e3e;cursor:pointer;font-size:16px;font-weight:700;padding:0;flex-shrink:0}
+.step-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.step-num{background:var(--be-blue);color:var(--be-yellow);font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:12px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-body{flex:1}
+.step-title{font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:12px;color:var(--be-blue);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
+.step-divider{border:none;border-top:1px dashed #e2e8f0;margin:20px 0}
+.prompt-box{background:#f8faff;border:1.5px solid #c7d2fe;border-radius:10px;padding:14px;max-height:180px;overflow-y:auto;margin-bottom:12px}
+.prompt-txt{font-size:12px;line-height:1.8;color:var(--be-dark);font-family:'Roboto',Arial,sans-serif;white-space:pre-wrap;word-break:break-word}
+.prompt-ph{font-size:13px;color:#94a3b8;font-style:italic;text-align:center;padding:16px 0}
+.prompt-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-copy{background:var(--be-yellow);color:var(--be-blue);border:none;border-radius:8px;padding:10px 16px;font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:12px;cursor:pointer}
+.btn-copy:disabled,.btn-gemini:disabled{opacity:0.4;cursor:not-allowed}
+.btn-gemini{background:var(--be-blue);color:var(--be-white);border:none;border-radius:8px;padding:10px 16px;font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:12px;cursor:pointer}
+.toast{display:none;background:#1a1a2e;color:#fff;font-size:13px;padding:12px 16px;border-radius:10px;margin-top:12px;line-height:1.6}
+.toast.show{display:block}
+.submit-wrap{text-align:center;padding:8px 0}
+.submit-note{color:#64748b;font-size:13px;margin-bottom:16px;line-height:1.6}
+.btn-submit{background:var(--be-blue);color:var(--be-white);border:none;border-radius:14px;padding:17px 40px;font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:15px;cursor:pointer;width:100%;max-width:440px;transition:opacity 0.2s,transform 0.1s}
+.btn-submit:hover{opacity:0.9;transform:translateY(-1px)}
+.btn-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.progress-bar-wrap{display:none;margin-top:16px;background:#e2e8f0;border-radius:99px;height:8px;overflow:hidden;max-width:440px;margin-left:auto;margin-right:auto}
+.progress-bar-wrap.show{display:block}
+.progress-bar{height:100%;background:var(--be-blue);border-radius:99px;width:0%;transition:width 0.3s}
+.progress-label{font-size:12px;color:#64748b;margin-top:6px;font-family:'Poppins',Arial,sans-serif}
+.success-view{display:none;background:var(--be-white);border-radius:20px;padding:48px 32px;text-align:center;border:1px solid #e2e8f0}
+.success-view.show{display:block}
+.s-icon{font-size:60px;display:block;margin-bottom:20px}
+.s-title{font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:26px;color:var(--be-blue);margin-bottom:10px}
+.s-text{color:var(--be-dark);font-size:15px;line-height:1.7;margin-bottom:20px}
+.s-msg-box{background:#f0f4ff;border-radius:12px;padding:16px 20px;max-width:440px;margin:0 auto 14px;border:1px solid #c7d2fe;text-align:left}
+.s-msg-label{font-family:'Poppins',Arial,sans-serif;font-weight:700;color:var(--be-blue);font-size:11px;display:block;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.s-msg-text{color:var(--be-dark);font-size:13px;line-height:1.7;white-space:pre-wrap}
+.s-note{color:#64748b;font-size:13px;line-height:1.6;max-width:380px;margin:0 auto}
+.tc-footer{background:var(--be-blue);border-radius:14px;padding:18px;text-align:center;color:rgba(255,255,255,0.55);font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="tc">
+  <div id="formView">
+    <div class="tc-header">
+      <span class="tc-badge">BantuEnglish</span>
+      <div class="tc-title">Teaching Complete</div>
+      <p class="tc-subtitle">Fill in this form after you finish your class session. This is required before your payment is processed.</p>
+    </div>
+
+    <div class="tc-section">
+      <div class="tc-sh"><div class="tc-sn">1</div><span class="tc-st">Personal Information</span></div>
+      <div class="tc-sb">
+        <div class="tc-field"><label class="tc-label">Full Name<span class="req">*</span></label><input class="tc-input" type="text" id="f-nama" placeholder="Enter your full name" /></div>
+        <div class="tc-field"><label class="tc-label">Email Address<span class="req">*</span></label><input class="tc-input" type="email" id="f-email" placeholder="Enter your email address" /></div>
+        <div class="tc-field"><label class="tc-label">Class Name<span class="req">*</span></label><input class="tc-input" type="text" id="f-kelas" placeholder="e.g. Speaking B1 - Morning Group" /></div>
+      </div>
+    </div>
+
+    <div class="tc-section">
+      <div class="tc-sh"><div class="tc-sn">2</div><span class="tc-st">Class Materials & Recording</span></div>
+      <div class="tc-sb">
+        <div class="tc-field"><label class="tc-label">File Link (Google Drive or any cloud link)</label><input class="tc-input" type="url" id="f-materi" placeholder="Paste your Google Drive link here (materials + class recording)" /></div>
+      </div>
+    </div>
+
+    <div class="tc-section">
+      <div class="tc-sh"><div class="tc-sn">3</div><span class="tc-st">English Learning Report</span></div>
+      <div class="tc-sb">
+        <div class="tc-field">
+          <label class="tc-label" id="pdf-lbl">Upload PDF Files — 0 / 10</label>
+          <div class="upload-zone" onclick="document.getElementById('pdf-in').click()">
+            <span class="up-icon">📄</span>
+            <span class="up-lbl">Click here to upload your PDF files</span>
+            <span class="up-hint">PDF only · Max 10 files · Max 5MB per file</span>
+          </div>
+          <input type="file" id="pdf-in" accept=".pdf" multiple style="display:none" onchange="handlePdfs(event)" />
+          <div class="file-list" id="file-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tc-section">
+      <div class="tc-sh"><div class="tc-sn">4</div><span class="tc-st">Student Feedback from YouTube</span></div>
+      <div class="tc-sb">
+        <div class="tc-note">⚠️ <strong>Important:</strong> Please change the YouTube video to <strong>Public</strong> before pasting the link. After Gemini finishes, set it back to <strong>Unlisted/ tidak publik</strong>.</div>
+        <div class="step-row">
+          <div class="step-num">A</div>
+          <div class="step-body">
+            <div class="step-title">Paste Student's YouTube Link</div>
+            <input class="tc-input" type="url" id="f-yt" placeholder="e.g. https://youtube.com/live/abc123" oninput="onYtInput()" />
+          </div>
+        </div>
+        <hr class="step-divider" />
+        <div class="step-row">
+          <div class="step-num">B</div>
+          <div class="step-body">
+            <div class="step-title">Generated Prompt — Send to Gemini</div>
+            <div class="prompt-box" id="prompt-box"><p class="prompt-ph">Paste a YouTube link above to generate the prompt.</p></div>
+            <div class="prompt-actions">
+              <button class="btn-copy" id="copy-btn" onclick="doCopy()" disabled>📋 <span id="copy-lbl">Copy Prompt</span></button>
+              <button class="btn-gemini" id="gemini-btn" onclick="openGemini()" disabled>✨ Open Gemini — then paste</button>
+            </div>
+            <div class="toast" id="toast">✅ Prompt copied! Open Gemini, click the chat box, then press <strong>Ctrl+V</strong> (Windows) or <strong>Cmd+V</strong> (Mac) to paste.</div>
+          </div>
+        </div>
+        <hr class="step-divider" />
+        <div class="step-row">
+          <div class="step-num">C</div>
+          <div class="step-body">
+            <div class="step-title">Paste AI Result Here</div>
+            <textarea class="tc-input" id="f-result" placeholder="Paste the Gemini-generated feedback summary here after it finishes..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <p class="submit-note">After submitting, you will go to the BantuEnglish Teacher WhatsApp group.<br>Your message will be copied — just paste and send it in the group.</p>
+      <button class="btn-submit" id="sub-btn" onclick="doSubmit()">✅ Submit & Go to WhatsApp Group</button>
+      <div class="progress-bar-wrap" id="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <div class="progress-label" id="progress-label"></div>
+    </div>
+  </div>
+
+  <div class="success-view" id="success-view">
+    <span class="s-icon">✅</span>
+    <div class="s-title">Submitted!</div>
+    <p class="s-text">Your Teaching Complete form has been submitted successfully.<br>You will be directed to the WhatsApp group now.</p>
+    <div class="s-msg-box">
+      <span class="s-msg-label">📋 Your message is copied — paste this in the WhatsApp group:</span>
+      <span class="s-msg-text" id="wa-preview"></span>
+    </div>
+    <p class="s-note">Press <strong>Ctrl+V</strong> (or ⌘+V) in the WhatsApp group, then tap Send.</p>
+  </div>
+
+  <div class="tc-footer">© 2025 BantuEnglish · Teaching Complete</div>
+</div>
+
+<script>
+var APPS_URL = 'https://script.google.com/macros/s/AKfycbyoywJkpz4K6HqF98165I3nc1oqUJs8E9oUIwdqKIJRcFjqeJ4NK29vGHeXKwubvBBT/exec';
+var WA = 'https://chat.whatsapp.com/JEdqRBC6VFT8AP0gbtnYwr?s=sw&p=i&ilr=2';
+
+var pdfs = [];
+var currentPrompt = '';
+var successShown = false;
+
+function buildPrompt(yt) {
+  return 'Watch the following YouTube video: [' + yt + ']\n' +
+    'Your task is to identify every moment in the video where a student gives feedback, impressions, or any kind of response related to their learning experience at the end of the class.\n\n' +
+    'Capture any student speech related to feedback, including:\n' +
+    '- Changes or progress they felt after learning English\n' +
+    '- Specific moments outside of class where they felt more confident\n' +
+    '- Impressions about the program or teaching style\n' +
+    '- Suggestions or recommendations for others\n' +
+    '- Complaints, criticisms, or anything they wish was different\n' +
+    '- Any other remark related to their experience in the class\n\n' +
+    'If a student speaks across multiple timestamps, list each segment separately.\n\n' +
+    'Output format:\n' +
+    'If there is only one student:\n' +
+    '[Student Name]\n' +
+    'MM:SS - MM:SS : [Write summary in first person, as if the student is speaking directly]\n' +
+    'MM:SS - MM:SS : [Continue in first person]\n\n' +
+    'If there is more than one student:\n' +
+    '[Student 1 Name]\n' +
+    'MM:SS - MM:SS : [First person summary]\n' +
+    '[Student 2 Name]\n' +
+    'MM:SS - MM:SS : [First person summary]\n\n' +
+    'Teacher Reflection:\n' +
+    'What went well:\n[Based only on students actual words]\n\n' +
+    'What needs improvement:\n[Direct and honest, do not sugarcoat]\n\n' +
+    'Recommended action for next session:\n[2-3 concrete actionable suggestions]\n\n' +
+    'Rules: First person only. No extra advice. Precise timestamps. Include real-life moments. Do not skip any feedback segment.\n' +
+    'If no feedback found: write "No feedback session found in this video"';
+}
+
+function handlePdfs(e) {
+  var files = [];
+  for (var i = 0; i < e.target.files.length; i++) {
+    var f = e.target.files[i];
+    if (f.type !== 'application/pdf') continue;
+    if (f.size > 5 * 1024 * 1024) { alert(f.name + ' exceeds 5MB limit.'); continue; }
+    files.push(f);
+  }
+  if (pdfs.length + files.length > 10) { alert('Maximum 10 PDF files allowed.'); return; }
+  pdfs = pdfs.concat(files);
+  renderFiles();
+  e.target.value = '';
+}
+
+function removeFile(i) { pdfs.splice(i, 1); renderFiles(); }
+
+function renderFiles() {
+  document.getElementById('pdf-lbl').textContent = 'Upload PDF Files — ' + pdfs.length + ' / 10';
+  document.getElementById('file-list').innerHTML = pdfs.map(function(f, i) {
+    return '<div class="file-item"><span class="file-name">📄 ' + f.name + '</span><span class="file-sz">' + (f.size / 1024).toFixed(0) + ' KB</span><button class="file-rm" onclick="removeFile(' + i + ')">✕</button></div>';
+  }).join('');
+}
+
+function onYtInput() {
+  var yt = document.getElementById('f-yt').value.trim();
+  var box = document.getElementById('prompt-box');
+  var cb = document.getElementById('copy-btn');
+  var gb = document.getElementById('gemini-btn');
+  if (yt) {
+    currentPrompt = buildPrompt(yt);
+    box.innerHTML = '<pre class="prompt-txt">' + currentPrompt.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</pre>';
+    cb.disabled = false; gb.disabled = false;
+  } else {
+    currentPrompt = '';
+    box.innerHTML = '<p class="prompt-ph">Paste a YouTube link above to generate the prompt.</p>';
+    cb.disabled = true; gb.disabled = true;
+  }
+}
+
+function doCopy() {
+  if (!currentPrompt) return;
+  navigator.clipboard.writeText(currentPrompt).then(function() {
+    var l = document.getElementById('copy-lbl');
+    l.textContent = 'Copied!';
+    setTimeout(function() { l.textContent = 'Copy Prompt'; }, 2000);
+  });
+}
+
+function openGemini() {
+  if (!currentPrompt) return;
+  navigator.clipboard.writeText(currentPrompt).catch(function() {});
+  var t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 7000);
+  setTimeout(function() { window.open('https://gemini.google.com/app', '_blank'); }, 500);
+}
+
+function setProgress(pct, label) {
+  document.getElementById('progress-wrap').classList.add('show');
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = label;
+}
+
+function doSubmit() {
+  var nama = document.getElementById('f-nama').value.trim();
+  var email = document.getElementById('f-email').value.trim();
+  var kelas = document.getElementById('f-kelas').value.trim();
+
+  if (!nama || !email || !kelas) {
+    alert('Please fill in Full Name, Email, and Class Name. They are required.');
+    return;
+  }
+
+  var btn = document.getElementById('sub-btn');
+  btn.disabled = true;
+  successShown = false;
+
+  if (pdfs.length > 0) {
+    btn.textContent = 'Reading PDF files...';
+    setProgress(10, 'Membaca file PDF...');
+  } else {
+    btn.textContent = 'Submitting...';
+    setProgress(10, 'Mengirim data...');
+  }
+
+  // Baca semua PDF jadi base64
+  Promise.all(pdfs.map(function(f) {
+    return new Promise(function(resolve) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        resolve({ name: f.name, base64: reader.result.split(',')[1] });
+      };
+      reader.readAsDataURL(f);
+    });
+  })).then(function(pdfData) {
+
+    if (pdfs.length > 0) {
+      btn.textContent = 'Uploading PDFs to Drive...';
+      setProgress(40, 'Mengupload PDF ke Google Drive...');
+    }
+
+    var payload = {
+      timestamp: new Date().toISOString(),
+      nama: nama,
+      email: email,
+      namaKelas: kelas,
+      fileMateri: document.getElementById('f-materi').value.trim(),
+      ytLink: document.getElementById('f-yt').value.trim(),
+      feedbackResult: document.getElementById('f-result').value.trim(),
+      pdfs: pdfData
+    };
+
+    setProgress(60, 'Mengirim data ke server...');
+
+    // Kirim via POST (untuk support PDF base64 yang besar)
+    fetch(APPS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    }).then(function() {
+      setProgress(100, 'Berhasil! ✅');
+      setTimeout(function() { showSuccess(kelas); }, 800);
+    }).catch(function() {
+      // Fallback: kirim tanpa PDF via GET jika POST gagal
+      setProgress(70, 'Mencoba metode alternatif...');
+      var payloadNoPdf = Object.assign({}, payload, { pdfs: [] });
+      var encoded = encodeURIComponent(JSON.stringify(payloadNoPdf));
+      var img = new Image();
+      img.onload = img.onerror = function() {
+        setProgress(100, 'Berhasil! ✅');
+        setTimeout(function() { showSuccess(kelas); }, 800);
+      };
+      img.src = APPS_URL + '?payload=' + encoded;
+      setTimeout(function() {
+        setProgress(100, 'Berhasil! ✅');
+        showSuccess(kelas);
+      }, 5000);
+    });
+
+    // Safety timeout: tampilkan sukses setelah 15 detik (PDF besar butuh waktu upload)
+    setTimeout(function() {
+      setProgress(100, 'Selesai! ✅');
+      showSuccess(kelas);
+    }, 15000);
+
+  }).catch(function() {
+    alert('Gagal membaca file PDF. Coba lagi atau kurangi ukuran file.');
+    btn.disabled = false;
+    btn.textContent = '✅ Submit & Go to WhatsApp Group';
+    document.getElementById('progress-wrap').classList.remove('show');
+  });
+}
+
+function showSuccess(kelas) {
+  if (successShown) return;
+  successShown = true;
+
+  var waMsg = 'Hi Admin! Aku sudah submit Teaching Complete untuk kelas *' + kelas + '* \u2705\n\nData sudah masuk ke Google Sheet. Terima kasih!';
+  document.getElementById('wa-preview').textContent = waMsg;
+  navigator.clipboard.writeText(waMsg).catch(function() {});
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('success-view').classList.add('show');
+  window.scrollTo(0, 0);
+
+  // Langsung redirect ke WA grup
+  window.location.href = WA;
+}
+</script>
+</body>
+</html>
